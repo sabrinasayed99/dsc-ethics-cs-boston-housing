@@ -334,6 +334,3 @@ df.columns
 
 ## Summary
 While the intentions of the study designers may not have been racially motivated, they were not sensitive to the potential detrimental consequences of the features they selected for their study. They failed use caution when including the "B" feature which led to the misappropriation of the data set over the course of its life as an educational tool. They did not consider how the set of features without the appropriate context could reinforce negative stereotypes about black communities. 
-
-### Additional Resources
-
