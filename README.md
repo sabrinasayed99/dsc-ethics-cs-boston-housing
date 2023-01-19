@@ -1,18 +1,20 @@
-# Data Science Ethics - Sensitive Features Case Study
+# Case Study - The Boston Housing Dataset
 
 ## Introduction
-In the previous lesson, we discussed the Boston Housing data set and some of the problems inherent to it. In this lab, we are going to explore the nitty-gritty about why the Boston Housing data set is so problematic so you can spot __sensitive features__ and handle them accordingly. We will also touch on __data integrity issues__, a topic that we will explore in further detail in future lessons. 
+The Boston Housing dataset collected for the paper [Hedonic housing prices and the demand for clean air](https://www.researchgate.net/publication/4974606_Hedonic_housing_prices_and_the_demand_for_clean_air) (Harrison and Rubinfeld, 1976). According to the abstract, the paper aimed to "investigates the methodological problems associated with the use of housing market data to measure the willingness to pay for clean air." However, due to the mishandling of sensitive features, the data has been linked to reinforcing harmful biases. 
+
+In this case study, you will explore the nitty-gritty about why the Boston Housing Dataset is so problematic so you can spot __sensitive features__ and handle them accordingly. You will also touch on __data integrity issues__, a topic that we will explore in further detail in future lessons. 
 
 ## Learning Objectives
 You will be able to:
 
-* Download and read the Boston Housing data set from GitHub
-* Identify and describe common data integrity issues
-* Identify and describe sensitive features and possible negative impacts
-* Discuss the reasons why the Boston Housing Data set is not an appropriate sample data set
+* Download and read the Boston Housing Dataset from GitHub
+* Identify sensitive features related to protected characteristics in Boston Housing Dataset
+* Identify data integrity issues in the Boston Housing Dataset
+* Discuss the reasons why the Boston Housing Dataset is not an appropriate sample dataset for students
 
 ## Load the Boston Housing Data Set
-Due to the issues we will discuss in this lab, the Boston Housing Data set is no longer available in Seaborn as a sample data set. However, you can still access this data set on GitHub. Run the code cells below to import the Boston Housing data set from GitHub.
+Due to the issues you will learn in this lab, the Boston Housing Data set is no longer available in Seaborn as a sample data set. However, you can still access this data set on GitHub. Run the code cells below to import the Boston Housing data set from GitHub.
 
 
 ```python
@@ -260,22 +262,43 @@ df
 ## Sensitive Features: "B"
 The feature that has received the most scrutiny with respect to the Boston Housing Data set is the `B` feature. So why is the "B" feature such an issue?
 
-One clue as to the reason why this feature is so problematic can be gleaned from the original description of this feature in the meta-data:
-```
-'1000(Bk — 0.63)² where Bk is the proportion of blacks(sic) by town'
-```
-
 ### Sociological Issues
-Beyond the cringe-worthy and dated language, from a sociological perspective there are several problems.
+It contains dated language referring to Black people as "blacks", seems like a questionable feature to include when 1970s Boston had relatively few Black people, and has this strange quadratic transformation applied to it.
 
 #### Implicit Bias 
 The intentions of the designers of the study was to control for factors that might influence the price of a home to isolate for their target of clean air. **However, by including a measurement of the concentration of *exclusively black people* it implicitly suggests that the *presence of black people and not racism* is what negatively impacts home values.
 
 #### Discriminatory Proxies
-While using race as a proxy *can* have a benefit in the proper context. For example, if we wanted to improve equity in education, it might be helpful to understand the relationship between different racial populations and quality of the education offered in their area. However, without proper context, some features can be interpreted in discriminatory or harmful ways. 
+While using race as a proxy *can* have a benefit in the proper context. For example, if you wanted to improve equity in education, it might be helpful to understand the relationship between different racial populations and quality of the education offered in their area. However, without proper context, some features can be interpreted in discriminatory or harmful ways. 
 
-### Statistical Issues
-In addition to the harmful implications of the manner 
+### Data Integrity Issues
+Beyond the potential negative social impacts of using a compromised dataset for analysis, there are numerous data integrity issues that arise which make the data unreliable and unfit for use.
+
+#### Destructive Transformation Methods
+When conducting research, it is important to retain the original data when making transformations to avoid data loss by __destructive transformation methods__.
+
+The "B" field is rendered uninterpretable because it contains a strange quadratic equation that cannot be reversed, and the original data was not retained. We can glean how this transformation was accomplished from the original description of this feature in the meta-data:
+
+```
+'1000(Bk — 0.63)² where Bk is the proportion of blacks(sic) by town'
+```
+
+Data scientist M Carlisle investigated that quadratic transformation in [this Medium post](https://medium.com/@docintangible/racist-data-destruction-113e3eff54a8) and found that it both destroyed some data (because it was a non-invertible transformation) and that it appears to be based on a since-disproven racist hypothesis of housing prices based on "self-segregation". This investigation led to the [deprecation](https://github.com/scikit-learn/scikit-learn/issues/16155) and planned removal of the dataset from scikit-learn.
+
+
+#### Data Limitations
+Sometimes a dataset is unusable because __the data itself is outdated__ or there were __limitations in the collection methods__. 
+
+Data scientist [Martina Cantaro](https://medium.com/@docintangible/racist-data-destruction-113e3eff54a8) has noted that the "B" feature is not the only problem with the Boston Housing dataset. The prices and geographic regions are outdated, there are [major mistakes in the target column](https://spatial-statistics.com/pace_manuscripts/jeem_ms_dir/pdf/fin_jeem.pdf), and some values are artificially capped at &#36;50k. The original paper's analysis has also not stood up to recent [revalidation efforts](https://openjournals.wu.ac.at/region/paper_107/107.html).
+
+For all of these reasons, data professionals and educators such as [Colleen Crangle](https://www.linkedin.com/pulse/its-time-retire-boston-housing-dataset-colleen-e-crangle/) have said "It’s time to retire the Boston Housing data set". Nowadays the preferred housing prices dataset for educational purposes is the [Ames Housing dataset](https://www.kaggle.com/datasets/prevek18/ames-housing-dataset), which was published with the paper [*Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project*](http://jse.amstat.org/v19n3/decock.pdf). This dataset is larger and messier than the Boston Housing dataset and also avoids some of its thorny ethical issues.
+
+As Crangle wrote:
+
+> So this outdated data set, while not meaning to racially profile neighborhoods, leads to racist interpretations of the data — especially when the data set is not put into its proper historical context in data science courses.
+
+By using the Boston Housing dataset, even in an educational context, an analysis might thus lead to unintentionally discriminatory outcomes -- or in other words, _disparate impact_. Therefore even now as you are still learning the basics of data analysis, it is important to recognize these kinds of potential impacts.
+
 
 ### Your Turn: Identifying Potential Discriminatory Proxies
 1. Run the code cell below to view the columns in the Boston Housing data set. 
@@ -311,3 +334,6 @@ df.columns
 
 ## Summary
 While the intentions of the study designers may not have been racially motivated, they were not sensitive to the potential detrimental consequences of the features they selected for their study. They failed use caution when including the "B" feature which led to the misappropriation of the data set over the course of its life as an educational tool. They did not consider how the set of features without the appropriate context could reinforce negative stereotypes about black communities. 
+
+### Additional Resources
+
