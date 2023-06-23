@@ -1,7 +1,7 @@
 # Case Study - The Boston Housing Dataset
 
 ## Introduction
-The Boston Housing dataset collected for the paper [Hedonic housing prices and the demand for clean air]([https://www.researchgate.net/publication/4974606_Hedonic_housing_prices_and_the_demand_for_clean_air](https://github.com/learn-co-curriculum/dsc-ethics-cs-boston-housing/blob/ad8c14841b5dddc3750e559e84bbfb777864e0c5/Hedonic-Housing-Prices-and-the-Demand-for-Clean-Air.pdf)) (Harrison and Rubinfeld, 1976). According to the abstract, the paper aimed to "investigates the methodological problems associated with the use of housing market data to measure the willingness to pay for clean air." However, due to the mishandling of sensitive features, the data has been linked to reinforcing harmful biases. 
+The Boston Housing dataset collected for the paper [Hedonic housing prices and the demand for clean air](https://www.researchgate.net/publication/4974606_Hedonic_housing_prices_and_the_demand_for_clean_air](https://github.com/learn-co-curriculum/dsc-ethics-cs-boston-housing/blob/ad8c14841b5dddc3750e559e84bbfb777864e0c5/Hedonic-Housing-Prices-and-the-Demand-for-Clean-Air.pdf) (Harrison and Rubinfeld, 1976). According to the abstract, the paper aimed to "investigates the methodological problems associated with the use of housing market data to measure the willingness to pay for clean air." However, due to the mishandling of sensitive features, the data has been linked to reinforcing harmful biases. 
 
 In this case study, you will explore the nitty-gritty about why the Boston Housing Dataset is so problematic so you can spot __sensitive features__ and handle them accordingly. You will also touch on __data integrity issues__, a topic that we will explore in further detail in future lessons. 
 
