@@ -14,7 +14,7 @@ You will be able to:
 * Discuss the reasons why the Boston Housing Dataset is not an appropriate sample dataset for students
 
 ## Load the Boston Housing Data Set
-Due to the issues you will learn in this lab, the Boston Housing Data set is no longer available in Seaborn as a sample data set. However, you can still access this data set on GitHub. Run the code cells below to import the Boston Housing data set from GitHub.
+Due to the aforementioned data issues which will be explored in depth in this lab, the Boston Housing Data set is no longer available in the Python package Seaborn as a sample data set. However, you can still access this data set on GitHub. Run the code cells below to import the Boston Housing data set from GitHub.
 
 
 ```python
